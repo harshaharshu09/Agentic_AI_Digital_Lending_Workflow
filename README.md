@@ -94,54 +94,38 @@ Produces risk categories for credit, debt-to-income ratio, employment, and loan 
 
 ```text
 Agentic_AI_Digital_Lending_Workflow/
-|
-+-- agents/                         # Lending workflow agents and data model
-|   +-- __init__.py
-|   +-- models.py                   # Loan application data model
-|   +-- intake_agent.py             # Input validation
-|   +-- eligibility_agent.py        # Eligibility rules and affordability
-|   +-- decision_agent.py           # Approval or human-review routing
-|   +-- loan_offer_agent.py         # Illustrative loan offer and EMI
-|   +-- risk_analysis_agent.py      # Risk categories and explanation
-|
-+-- config/
-|   +-- settings.py                 # Application settings
-|
-+-- data/
-|   +-- applications.json           # Sample application data
-|
-+-- outputs/
-|   +-- audit_log.json              # Audit output placeholder
-|
-+-- tools/
-|   +-- __init__.py
-|   +-- loan_calculator.py          # Reusable loan calculation functions
-|
-+-- app.py                          # Streamlit interface
-+-- workflow.py                     # Main workflow orchestration
-+-- requirements.txt                # Python dependencies
-+-- README.md                       # Project documentation
-+-- .gitignore                      # Excluded local files
+│
+├── agents/
+│   ├── __init__.py
+│   ├── intake_agent.py
+│   ├── eligibility_agent.py
+│   ├── decision_agent.py
+│   ├── loan_offer_agent.py
+│   ├── risk_analysis_agent.py
+│   └── models.py
+│
+├── config/
+│   └── settings.py
+│
+├── data/
+│   └── applications.json
+│
+├── outputs/
+│   └── audit_log.json
+│
+├── tools/
+│   ├── __init__.py
+│   └── loan_calculator.py
+│
+├── app.py
+├── workflow.py
+├── workflow_backup.py
+├── workflow_before_risk_output.py
+├── workflow_test.py
+├── requirements.txt
+├── README.md
+└── .gitignore
 ```
-
-### Core Components
-
-| File or Directory | Responsibility |
-|---|---|
-| `app.py` | Streamlit form, workflow execution, and result display |
-| `workflow.py` | Coordinates validation, eligibility, decision, offer, and risk stages |
-| `agents/intake_agent.py` | Validates applicant inputs |
-| `agents/eligibility_agent.py` | Applies eligibility rules and calculates affordability metrics |
-| `agents/decision_agent.py` | Routes eligible applications to offer generation and other cases to human review |
-| `agents/loan_offer_agent.py` | Calculates the illustrative loan offer |
-| `agents/risk_analysis_agent.py` | Assigns heuristic risk categories and explains the assessment |
-| `agents/models.py` | Defines the `LoanApplication` data model |
-| `tools/loan_calculator.py` | Provides reusable EMI and DTI calculation helpers |
-| `config/settings.py` | Reserved for application settings |
-| `data/applications.json` | Sample-data file |
-| `outputs/audit_log.json` | Audit-log file placeholder |
-| `requirements.txt` | Runtime dependency list |
-
 
 ### Core Components
 
