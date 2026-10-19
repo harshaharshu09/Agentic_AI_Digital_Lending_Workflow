@@ -94,35 +94,49 @@ Produces risk categories for credit, debt-to-income ratio, employment, and loan 
 
 ```text
 Agentic_AI_Digital_Lending_Workflow/
-|
-+-- agents/
-|   +-- __init__.py
-|   +-- models.py
-|   +-- intake_agent.py
-|   +-- eligibility_agent.py
-|   +-- decision_agent.py
-|   +-- loan_offer_agent.py
-|   +-- risk_analysis_agent.py
-|
-+-- config/
-|   +-- settings.py
-|
-+-- data/
-|   +-- applications.json
-|
-+-- outputs/
-|   +-- audit_log.json
-|
-+-- tools/
-|   +-- __init__.py
-|   +-- loan_calculator.py
-|
-+-- app.py
-+-- workflow.py
-+-- requirements.txt
-+-- README.md
-+-- .gitignore
+│
+├── agents/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── intake_agent.py
+│   ├── eligibility_agent.py
+│   ├── decision_agent.py
+│   ├── loan_offer_agent.py
+│   └── risk_analysis_agent.py
+│
+├── config/
+│   └── settings.py
+│
+├── data/
+│   └── applications.json
+│
+├── outputs/
+│   └── audit_log.json
+│
+├── tools/
+│   ├── __init__.py
+│   └── loan_calculator.py
+│
+├── app.py
+├── workflow.py
+├── requirements.txt
+├── README.md
+└── .gitignore
 ```
+
+### Core Components
+
+| Component | Responsibility |
+|---|---|
+| `app.py` | Streamlit user interface and assessment result display |
+| `workflow.py` | Main orchestration of the complete lending workflow |
+| `agents/` | Individual agents for validation, eligibility, decision, offer, and risk analysis |
+| `agents/models.py` | Loan application data model |
+| `config/` | Application configuration and settings |
+| `data/` | Sample application data |
+| `outputs/` | Generated audit information |
+| `tools/` | Reusable calculation utilities |
+| `requirements.txt` | Python project dependencies |
 
 ## How to Run Locally
 
@@ -224,8 +238,3 @@ The command-line workflow provides a corresponding text-based result for testing
 **KN Harsha Vardhan Kumar**
 
 GitHub: https://github.com/harshaharshu09
-
-## Project Links
-
-- Live Application: https://harshaharshu09-agentic-ai-digital-lending-workflow-app-jjk0mm.streamlit.app/
-- Repository: https://github.com/harshaharshu09/Agentic_AI_Digital_Lending_Workflow
