@@ -1,90 +1,94 @@
 # Agentic AI Digital Lending Workflow
 
-A modular Python application that demonstrates a digital lending workflow: application validation, eligibility checks, decision routing, risk analysis, and illustrative loan-offer generation.
+A modular Python application that demonstrates an end-to-end digital lending workflow for loan application intake, validation, eligibility assessment, decision routing, risk analysis, and illustrative loan-offer generation.
 
-## Live Demo
+## Live Application
 
-**Streamlit Application:** https://harshaharshu09-agentic-ai-digital-lending-workflow-app-jjk0mm.streamlit.app/
+**Streamlit App:**
+https://harshaharshu09-agentic-ai-digital-lending-workflow-app-jjk0mm.streamlit.app/
 
-## Project Overview
+**GitHub Repository:**
+https://github.com/harshaharshu09/Agentic_AI_Digital_Lending_Workflow
 
-This project simulates how a digital lending application can be processed through specialised agents. Each agent handles a defined task, while the workflow coordinates the results and routes the application to the next step.
+## Overview
 
-The current version uses configurable, rule-based Python logic for eligibility and risk assessment. It does not call an external large language model or a real credit bureau. The outputs are intended for learning and demonstration, not real lending decisions.
+The project simulates a digital lending decision workflow using specialised Python agents. Each agent is responsible for one stage of the process, while the central workflow coordinates the agents and combines their results into a final application assessment.
+
+The current implementation uses configurable, rule-based Python logic. It is an educational prototype and does not connect to an external large language model, credit bureau, identity-verification service, bank, or real lending provider.
 
 ## Workflow
 
-```text
-Applicant submits loan details
-            |
-            v
-Intake and Validation Agent
-            |
-       Valid input?
-        /       \
-      No         Yes
-      |           |
-      v           v
-REJECTED     Eligibility Assessment Agent
-                  |
-                  v
-              Decision Agent
-                  |
-          +-------+--------+
-          |                |
-       APPROVED        HUMAN_REVIEW
-          |                |
-          v                v
-    Loan Offer Agent   No offer generated
-          |                |
-          +-------+--------+
-                  |
-                  v
-          Risk Analysis Agent
-                  |
-                  v
-         Assessment results shown
-             in Streamlit
+```mermaid
+flowchart TD
+    A[Loan Application] --> B[Intake and Validation Agent]
+    B --> C{Valid Application?}
+    C -->|No| D[Rejected]
+    C -->|Yes| E[Eligibility Assessment Agent]
+    E --> F[Decision Agent]
+    F --> G{Decision}
+    G -->|Approved| H[Loan Offer Agent]
+    G -->|Human Review| I[Human Review Status]
+    H --> J[Risk Analysis Agent]
+    I --> J
+    J --> K[Final Assessment Results]
+    K --> L[Streamlit Dashboard]
 ```
 
-The workflow stops at validation if the application contains invalid data. When validation passes, eligibility rules feed into the decision agent. An approved application receives an illustrative offer; a case requiring manual review does not receive an offer automatically. Risk analysis then summarises the applicant's financial profile.
+### Workflow Stages
 
-## Agents and Responsibilities
+1. **Intake and Validation** - validates the submitted applicant information.
+2. **Eligibility Assessment** - evaluates the application using the configured eligibility rules.
+3. **Decision** - routes the application to approval or human review based on the eligibility result.
+4. **Loan Offer Generation** - generates an illustrative loan offer for approved applications.
+5. **Risk Analysis** - evaluates credit, debt-to-income, employment, and loan-related risk indicators.
+6. **Final Results** - displays the complete assessment through the Streamlit application.
+
+## Agents
 
 ### Intake and Validation Agent
-Checks key application fields, including age, income, requested loan amount, tenure, and credit-score range.
+
+Validates important application fields such as age, monthly income, requested loan amount, loan tenure, and credit score.
 
 ### Eligibility Assessment Agent
-Applies the project's configured demonstration rules using age, credit score, debt-to-income ratio, and employment experience.
+
+Applies the project's configured eligibility rules using applicant financial and employment information, including credit score, debt-to-income ratio, and employment experience.
 
 ### Decision Agent
-Routes eligible cases to the offer path and sends cases that fail the configured eligibility criteria to human review. Validation failures are returned as rejected applications.
+
+Converts the eligibility assessment into a workflow decision. Approved applications continue to loan-offer generation, while applications requiring additional assessment are routed to human review.
 
 ### Loan Offer Agent
-For approved applications, calculates an illustrative monthly EMI, total interest, and total repayment using a configured annual interest rate of 10.5%.
+
+Generates an illustrative loan offer for approved applications, including loan amount, tenure, interest rate, monthly EMI, total interest, and total repayment.
 
 ### Risk Analysis Agent
-Summarises credit, DTI, employment, and loan-to-income risk categories and returns an overall risk level, recommendation, and explanation. These are heuristic demonstration rules, not a validated credit-risk model.
+
+Produces risk categories for credit, debt-to-income ratio, employment, and loan exposure, along with an overall risk level, recommendation, and explanation. These are heuristic demonstration rules and are not a validated credit-risk model.
 
 ## Key Features
 
-- Applicant input through a Streamlit web interface
-- Initial application validation
+- Streamlit-based loan application interface
+- Modular multi-agent workflow architecture
+- Application validation
 - Rule-based eligibility assessment
-- Conditional decision routing and human-review status
+- Decision routing with human-review handling
 - Debt-to-income ratio calculation
-- Risk summaries for credit, DTI, employment, and loan size
-- Illustrative EMI and total repayment calculation
-- Streamlit results dashboard
+- Illustrative EMI and repayment calculation
+- Credit, DTI, employment, and loan risk analysis
+- Consolidated assessment results
+- Local workflow execution through Python
 
 ## Technology Stack
 
-- Python
-- Streamlit
-- Dataclasses and type annotations
-- Rule-based decision logic
-- Git and GitHub
-- Streamlit Community Cloud
+| Technology | Purpose |
+|---|---|
+| Python | Core application and workflow logic |
+| Streamlit | Interactive web application |
+| Dataclasses | Loan application data modelling |
+| Rule-based logic | Eligibility, decision, and risk assessment |
+| Git | Version control |
+| GitHub | Source-code repository |
+| Streamlit Community Cloud | Application deployment |
 
 ## Project Structure
 
@@ -120,7 +124,13 @@ Agentic_AI_Digital_Lending_Workflow/
 +-- .gitignore
 ```
 
-## Run Locally
+## How to Run Locally
+
+### Prerequisites
+
+- Python 3.x
+- Git
+- Internet connection for installing Python dependencies
 
 ### 1. Clone the repository
 
@@ -129,54 +139,85 @@ git clone https://github.com/harshaharshu09/Agentic_AI_Digital_Lending_Workflow.
 cd Agentic_AI_Digital_Lending_Workflow
 ```
 
-### 2. Create and activate a virtual environment
+### 2. Create a virtual environment
 
 Windows PowerShell:
 
 ```powershell
 python -m venv .venv
+```
+
+### 3. Activate the virtual environment
+
+```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-### 3. Install dependencies
+### 4. Install dependencies
 
 ```powershell
 python -m pip install -r requirements.txt
 ```
 
-### 4. Launch the application
+### 5. Start the Streamlit application
 
 ```powershell
 python -m streamlit run app.py
 ```
 
-You can also run the command-line workflow example:
+The application will open in the browser at the local Streamlit address shown in the terminal.
+
+### 6. Run the command-line workflow
 
 ```powershell
 python workflow.py
 ```
 
-## Example Scenario
+This executes the sample workflow and prints the decision, DTI result, loan offer details when applicable, and risk analysis to the terminal.
 
-The sample applicant used during development has monthly income of Rs. 80,000, existing EMI of Rs. 10,000, a requested loan of Rs. 8,00,000, a 60-month tenure, and a credit score of 720.
+## Sample Application
 
-The demo calculates a debt-to-income ratio using the project's affordability calculation and generates an illustrative offer when the configured rules route the application to approval. The exact result depends on the inputs and rules in the current code.
+The included workflow example uses the following applicant profile:
+
+| Field | Sample Value |
+|---|---:|
+| Applicant | Rahul |
+| Age | 29 |
+| Monthly Income | Rs. 80,000 |
+| Employment Type | Salaried |
+| Employment Experience | 5 years |
+| Requested Loan | Rs. 8,00,000 |
+| Existing EMI | Rs. 10,000 |
+| Loan Tenure | 60 months |
+| Credit Score | 720 |
+
+The exact decision and risk output are determined by the rules implemented in the current source code.
+
+## Application Output
+
+The Streamlit dashboard presents the applicant details, loan assessment result, debt-to-income ratio, eligibility information, decision status, loan-offer information when generated, and risk analysis.
+
+The command-line workflow provides a corresponding text-based result for testing and demonstration.
 
 ## Limitations
 
-- This is an educational prototype using synthetic sample details and heuristic rules.
-- Eligibility thresholds, risk categories, and the illustrative interest rate are not financial advice and do not represent any bank's policy.
-- No external LLM, real credit bureau, identity verification, or lender service is connected.
-- The generated offer is not a binding offer or a real loan approval.
-- The current workflow uses lightweight local files; it is not designed for production lending operations.
+- This is an educational prototype and should not be used for real lending decisions.
+- The eligibility and risk rules are heuristic and have not been validated for financial underwriting.
+- No external LLM or real credit bureau is connected.
+- No identity verification, document verification, banking integration, or lender API is connected.
+- Loan offers generated by the application are illustrative and are not binding financial offers.
+- The project uses lightweight local data and is not designed as a production lending platform.
 
-## Possible Enhancements
+## Future Enhancements
 
-- Add a genuine LLM-assisted agent with transparent configuration and safe fallbacks
-- Add tests for validation, approval, human review, and offer calculations
-- Persist application history and audit events
-- Add document checks, authentication, and role-based reviewer actions
-- Integrate approved external data sources and explainable decision methods
+- Integrate an LLM-powered agent with controlled prompts and deterministic fallbacks.
+- Add automated unit and integration tests for every workflow stage.
+- Add persistent application and audit storage.
+- Add document verification and applicant authentication.
+- Add explainable machine-learning based credit-risk scoring.
+- Add reviewer workflows for human-in-the-loop decisions.
+- Integrate approved external financial data sources through secure APIs.
+- Add production-grade logging, monitoring, security, and access control.
 
 ## Author
 
@@ -184,3 +225,7 @@ The demo calculates a debt-to-income ratio using the project's affordability cal
 
 GitHub: https://github.com/harshaharshu09
 
+## Project Links
+
+- Live Application: https://harshaharshu09-agentic-ai-digital-lending-workflow-app-jjk0mm.streamlit.app/
+- Repository: https://github.com/harshaharshu09/Agentic_AI_Digital_Lending_Workflow
